@@ -1,0 +1,1 @@
+Yes, Java allows you to create multiple constructor methods in the same class, as long as each constructor has a unique parameter list. This feature, called constructor overloading, enables me to define different ways to instantiate an object based on the provided parameters.
