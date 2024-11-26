@@ -1,7 +1,7 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
-
+//
 public class Bai8 {
     public static void main(String[] args) {
         try {
