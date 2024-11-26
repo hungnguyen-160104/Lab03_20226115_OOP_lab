@@ -131,6 +131,22 @@ class Cart {
         }
         System.out.println("No match found for ID: " + id);
     }
+// printCart
+    public void printCart() {
+        System.out.println("*********************** CART ***********************");
+        System.out.println("Ordered Items:");
+        
+        // Sử dụng vòng lặp for-each hoặc for thường để hiển thị danh sách
+        for (int i = 0; i < items.size(); i++) {
+            System.out.printf("%d. %s%n", i + 1, items.get(i));
+        }
+        
+        // Hiển thị tổng chi phí
+        System.out.printf("Total cost: %.2f $%n", totalCost());
+        
+        System.out.println("***************************************************");
+    }
+    
 }
 
 // 3. Aims
@@ -146,10 +162,7 @@ class Bai50 {
         anOrder.addDigitalVideoDisc(dvd3);
 
         System.out.println("\n--- Display Cart ---");
-        anOrder.displayCart();
-
-        System.out.println("\n--- Search by ID ---");
-        anOrder.searchById(2); // Tìm DVD có ID = 2
-        anOrder.searchById(5); // Tìm DVD không tồn tại
+        anOrder.printCart(); // Gọi phương thức in giỏ hàng
     }
 }
+
