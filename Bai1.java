@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 
-// 1. DigitalVideoDisc
 class DigitalVideoDisc {
-    private static int idCounter = 1; // Tự động tăng ID
-    private int id;
     private String title;
     private String category;
     private String director;
@@ -11,7 +8,6 @@ class DigitalVideoDisc {
     private float cost;
 
     public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-        this.id = idCounter++;
         this.title = title;
         this.category = category;
         this.director = director;
@@ -20,14 +16,9 @@ class DigitalVideoDisc {
     }
 
     public DigitalVideoDisc(String title, String category, float cost) {
-        this.id = idCounter++;
         this.title = title;
         this.category = category;
         this.cost = cost;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getTitle() {
@@ -69,34 +60,45 @@ class DigitalVideoDisc {
     public void setCost(float cost) {
         this.cost = cost;
     }
-
-    @Override
-    public String toString() {
-        return title + " | Category: " + category + " | Director: " + director +
-               " | Length: " + length + " mins | Cost: " + cost + " $";
-    }
 }
 
-// 2. Cart
 class Cart {
     private ArrayList<DigitalVideoDisc> items = new ArrayList<>();
+    private int qtyOrdered = 0;
+    private final int MAX_NUMBERS_ORDERED = 10; // Maximum limit for ordered items
 
+    // Adding a single DVD
     public void addDigitalVideoDisc(DigitalVideoDisc disc) {
-        items.add(disc);
-        System.out.println("The DVD " + disc.getTitle() + " has been added to the cart.");
-    }
-
-    public void addDigitalVideoDisc(DigitalVideoDisc[] discs) {
-        for (DigitalVideoDisc disc : discs) {
-            addDigitalVideoDisc(disc);
+        if (qtyOrdered >= MAX_NUMBERS_ORDERED) {
+            System.out.println("The cart is full");
+        } else {
+            items.add(disc);
+            qtyOrdered++;
+            System.out.println("The DVD " + disc.getTitle() + " has been added to the cart.");
         }
     }
 
+    // Adding an array of DVDs
+    public void addDigitalVideoDisc(DigitalVideoDisc[] dvdList) {
+        for (int i = 0; i < dvdList.length; i++) {
+            if (qtyOrdered < MAX_NUMBERS_ORDERED) {
+                items.add(dvdList[i]);
+                qtyOrdered++;
+                System.out.println("The disc " + dvdList[i].getTitle() + " has been added.");
+            } else {
+                System.out.println("The cart is full");
+                break;
+            }
+        }
+    }
+
+    // Adding two DVDs
     public void addDigitalVideoDisc(DigitalVideoDisc disc1, DigitalVideoDisc disc2) {
         addDigitalVideoDisc(disc1);
         addDigitalVideoDisc(disc2);
     }
 
+    // Removing a DVD
     public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
         if (items.remove(disc)) {
             System.out.println("The DVD " + disc.getTitle() + " has been removed from the cart.");
@@ -105,6 +107,7 @@ class Cart {
         }
     }
 
+    // Calculating total cost
     public float totalCost() {
         float total = 0;
         for (DigitalVideoDisc disc : items) {
@@ -113,56 +116,40 @@ class Cart {
         return total;
     }
 
+    // Displaying cart contents
     public void displayCart() {
         System.out.println("Items in the cart:");
         for (DigitalVideoDisc disc : items) {
-            System.out.println("- " + disc);
+            System.out.println("- " + disc.getTitle() + " | Category: " + disc.getCategory() +
+                    " | Director: " + disc.getDirector() +
+                    " | Length: " + disc.getLength() +
+                    " | Cost: " + disc.getCost());
         }
         System.out.println("Total cost: " + totalCost());
     }
-
-    // Phương thức searchById
-    public void searchById(int id) {
-        for (DigitalVideoDisc disc : items) {
-            if (disc.getId() == id) {
-                System.out.println("Found: " + disc);
-                return; // Dừng ngay khi tìm thấy
-            }
-        }
-        System.out.println("No match found for ID: " + id);
-    }
-
-    public void printCart() {
-        System.out.println("*********************** CART ***********************");
-        System.out.println("Ordered Items:");
-        
-        // Sử dụng vòng lặp for-each hoặc for thường để hiển thị danh sách
-        for (int i = 0; i < items.size(); i++) {
-            System.out.printf("%d. %s%n", i + 1, items.get(i));
-        }
-        
-        // Hiển thị tổng chi phí
-        System.out.printf("Total cost: %.2f $%n", totalCost());
-        
-        System.out.println("***************************************************");
-    }
-    
 }
 
-// 3. Aims
-class Bai50 {
+public class Bai1 {
     public static void main(String[] args) {
         Cart anOrder = new Cart();
-        DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
-        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
-        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladdin", "Animation", 18.99f);
 
+        DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
         anOrder.addDigitalVideoDisc(dvd1);
+
+        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
         anOrder.addDigitalVideoDisc(dvd2);
+
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
         anOrder.addDigitalVideoDisc(dvd3);
 
-        System.out.println("\n--- Display Cart ---");
-        anOrder.printCart(); // Gọi phương thức in giỏ hàng
+        // Adding an array of DVDs
+        DigitalVideoDisc[] newDvds = {
+            new DigitalVideoDisc("Frozen", "Animation", "Chris Buck", 102, 22.95f),
+            new DigitalVideoDisc("The Matrix", "Science Fiction", "The Wachowskis", 136, 29.95f)
+        };
+        anOrder.addDigitalVideoDisc(newDvds);
+
+        System.out.println("Total Cost is: ");
+        System.out.println(anOrder.totalCost());
     }
 }
-
