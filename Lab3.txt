@@ -1,0 +1,33 @@
+2. Question: Try to add a method addDigitalVideoDisc which allows to pass an arbitrary number of arguments for DVDs. Compare it to an array parameter. What do you prefer in this case?
+
+Khai báo DigitalVideoDisc... dvds trong phương thức cho phép nhận bất kỳ số lượng đối tượng DigitalVideoDisc.
+
+
+Ý nghĩa của ... trong khai báo: Đây là cú pháp để truyền tham số biến (varargs), cho phép người dùng gọi phương thức với một số lượng tham số không xác định.
+
+Biến dvds trong phương thức: Thực chất là một mảng, nhưng lập trình viên không cần tạo mảng thủ công khi gọi phương thức.
+
+Ưu điểm:Dễ sử dụng: Không cần tạo mảng thủ công, chỉ cần truyền trực tiếp các đối tượng.
+
+Linh hoạt: Có thể truyền vào 0, 1 hoặc nhiều đối tượng DigitalVideoDisc.
+
+3. Question: Is JAVA a Pass by Value or a Pass by Reference programming language?
+
+Java luôn là pass by value.
+
+
+Tại sao sau khi gọi swap(jungleDVD, cinderellaDVD) tiêu đề của hai đối tượng vẫn giữ nguyên?
+
+Java truyền tham số bằng bản sao giá trị tham chiếu đến đối tượng (pass-by-value).
+
+Trong phương thức swap(jungleDVD, cinderellaDVD), chỉ có các bản sao tham chiếu được hoán đổi, không phải đối tượng thực sự.
+
+Tham chiếu gốc jungleDVD và cinderellaDVD trong main không bị ảnh hưởng.
+
+Tại sao sau khi gọi changeTitle(jungleDVD, cinderellaDVD.getTitle()) tiêu đề của jungleDVD thay đổi?
+
+Phương thức changeTitle nhận tham chiếu tới đối tượng jungleDVD nên có thể thao tác trực tiếp lên đối tượng này.
+
+Nếu trong phương thức có gọi setTitle(newTitle), tiêu đề của jungleDVD sẽ được cập nhật theo giá trị của cinderellaDVD.getTitle().
+
+Do đó, tiêu đề của jungleDVD được thay đổi thành "Cinderella".
